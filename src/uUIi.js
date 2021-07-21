@@ -2,13 +2,11 @@ import Task from './task';
 
 // Hardcoded array of tasks --> toDos (line6)
 const firstTask = new Task('clean table', false, 1);
-console.log(firstTask.task2string());
 const toDos = [];
 toDos.push(firstTask);
 
 // UI Class: Handle UI Tasks
 export default class UI {
-
   static addApp() {
     this.addTitle();
     this.addForm();
@@ -37,7 +35,7 @@ export default class UI {
     const input = document.createElement('input');
     input.type = 'text';
     input.placeholder = 'Add to your list...';
-    input.className = 'form-control border-0 fst-italic p-0'
+    input.className = 'form-control border-0 fst-italic p-0';
     div4form.appendChild(input);
 
     appDiv.appendChild(div4form);
@@ -67,7 +65,7 @@ export default class UI {
     item.className = 'd-flex justify-content-around align-items-center border-bottom border-2 px-2 appItem';
 
     const checkbox = document.createElement('INPUT'); // creates checkbox
-    checkbox.setAttribute("type", "checkbox");
+    checkbox.setAttribute('type', 'checkbox');
     checkbox.checked = task.completed;
     checkbox.className = 'form-check-label p-2';
     item.appendChild(checkbox); // appends checkbox to item
@@ -83,5 +81,4 @@ export default class UI {
 
     list.appendChild(item); // appends item to list
   }
-
 }
