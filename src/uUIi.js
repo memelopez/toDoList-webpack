@@ -4,6 +4,10 @@ import Task from './task';
 const firstTask = new Task('clean table', false, 1);
 const toDos = [];
 toDos.push(firstTask);
+const secondTask = new Task('wahs dishes', true, 2);
+toDos.push(secondTask);
+const thirdTask = new Task('fix sink', false, 3);
+toDos.push(thirdTask);
 
 // UI Class: Handle UI Tasks
 export default class UI {
