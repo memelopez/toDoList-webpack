@@ -1,30 +1,27 @@
+// UI Class: Handles UI Tasks
 import Task from './task';
 import Store from './store';
 
 // Hardcoded array of tasks --> toDos (line6)
-const firstTask = new Task('clean table', false, 1);
 const toDos = [];
-toDos.push(firstTask);
 const secondTask = new Task('wahs dishes', true, 2);
 toDos.push(secondTask);
 const thirdTask = new Task('fix sink', false, 3);
 toDos.push(thirdTask);
 
 // meter los tasks a local storage
-toDos.forEach((task) => Store.addTask(task));
+// toDos.forEach((task) => Store.addTask(task));
 
-
-// UI Class: Handle UI Tasks
 export default class UI {
   static addApp() {
-    this.addTitle();
-    this.addForm();
+    this.addTitleUI();
+    this.addFormUI();
     this.addEmptyUL();
-    const todos1 = Store.getTasks();
-    this.addTasks(toDos1);
+    const toDos1 = Store.getTasks();
+    this.addTasksUI(toDos1);
   }
 
-  static addTitle() {
+  static addTitleUI() {
     const appDiv = document.querySelector('#appDiv');
 
     const div4title = document.createElement('DIV');
@@ -37,16 +34,21 @@ export default class UI {
     appDiv.appendChild(div4title);
   }
 
-  static addForm() {
+  static addFormUI() {
     const appDiv = document.querySelector('#appDiv');
 
     const div4form = document.createElement('DIV');
-    div4form.className = 'd-flex justify-content-start align-items-center border-bottom border-2 px-2 appItem';
+    const form = document.createElement('FORM');
+    form.className = 'd-flex justify-content-start align-items-center border-bottom border-2 px-2 appItem';
+    form.action = 'submit';
+    form.id = 'addTaskForm';
     const input = document.createElement('input');
     input.type = 'text';
+    input.id = 'taskDesc';
     input.placeholder = 'Add to your list...';
     input.className = 'form-control border-0 fst-italic p-0';
-    div4form.appendChild(input);
+    form.appendChild(input);
+    div4form.appendChild(form);
 
     appDiv.appendChild(div4form);
   }
@@ -63,7 +65,7 @@ export default class UI {
     appDiv.appendChild(div4list);
   }
 
-  static addTasks(tasks) {
+  static addTasksUI(tasks) {
     // Iterates over array tasks to populate HTML list
     tasks.forEach((task) => this.addTaskToList(task));
   }
@@ -90,5 +92,26 @@ export default class UI {
     item.appendChild(icon); // appends icon to item
 
     list.appendChild(item); // appends item to list
+  }
+
+  static addTask(description) {
+    // gets index from storage
+    const index = Store.getIndexTotal();
+    // instantiates a new task
+    const task = new Task(description, false, index);
+
+    // Add task to UI
+    this.addTaskToList(task);
+
+    // Add task to local storage
+    Store.addTask(task);
+    Store.setsIndexTotalPlusOne();
+
+    // Clear description input
+    this.clearField();
+  }
+
+  static clearField() {
+    document.querySelector('#taskDesc').value = '';
   }
 }
