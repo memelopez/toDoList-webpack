@@ -1,4 +1,5 @@
 import Task from './task';
+import Store from './store';
 
 // Hardcoded array of tasks --> toDos (line6)
 const firstTask = new Task('clean table', false, 1);
@@ -9,13 +10,18 @@ toDos.push(secondTask);
 const thirdTask = new Task('fix sink', false, 3);
 toDos.push(thirdTask);
 
+// meter los tasks a local storage
+toDos.forEach((task) => Store.addTask(task));
+
+
 // UI Class: Handle UI Tasks
 export default class UI {
   static addApp() {
     this.addTitle();
     this.addForm();
     this.addEmptyUL();
-    this.addTasks(toDos);
+    const todos1 = Store.getTasks();
+    this.addTasks(toDos1);
   }
 
   static addTitle() {
