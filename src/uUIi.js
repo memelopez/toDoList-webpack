@@ -98,11 +98,15 @@ export default class UI {
     const item = document.createElement('LI'); // creates list item
     item.className = 'd-flex justify-content-around align-items-center border-bottom border-2 px-2 appItem';
 
+    // creates div for normal view
+    const divNormal = document.createElement('DIV');
+    divNormal.className = 'd-flex align-items-center normalView';
+
     const checkbox = document.createElement('INPUT'); // creates checkbox
     checkbox.setAttribute('type', 'checkbox');
     checkbox.checked = task.completed;
     checkbox.className = 'form-check-label p-2 blackCheckboxes';
-    item.appendChild(checkbox); // appends checkbox to item
+    divNormal.appendChild(checkbox); // appends checkbox to item
 
     const text = document.createElement('P'); // creates p
     text.textContent = task.description;
@@ -110,14 +114,25 @@ export default class UI {
     if (task.completed === true) {
       text.classList.add('text-decoration-line-through');
     }
-    item.appendChild(text); // appends p to item
+    divNormal.appendChild(text); // appends p to item
 
     const ind = document.createElement('P'); // creates p
     ind.textContent = task.index;
-    ind.id = 'specialK';
     ind.className = 'd-none';
-    item.appendChild(ind);
+    divNormal.appendChild(ind);
 
+    // Create div for edit view
+    const divEdit = document.createElement('DIV');
+    divEdit.className = 'd-none align-items-center editView';
+
+    const inputEdit = document.createElement('INPUT');
+    inputEdit.setAttribute('type', 'text');
+    inputEdit.className = 'form-control border-0 p-0';
+    inputEdit.value = task.description;
+
+    divEdit.appendChild(inputEdit);
+
+    // Creates div for icons
     const div4Icons = document.createElement('DIV');
     div4Icons.className = 'ms-auto';
 
@@ -126,13 +141,15 @@ export default class UI {
     div4Icons.appendChild(iconAccept); // appends iaccwpt con to item
 
     const iconEdit = document.createElement('I'); // creates edit icon
-    iconEdit.className = 'fas fa-ellipsis-v p-2';
+    iconEdit.className = 'fas fa-ellipsis-v p-2 edtIcn';
     div4Icons.appendChild(iconEdit); // appends edit icon to item
 
     const iconRemove = document.createElement('I'); // creates icon
     iconRemove.className = 'fas fa-trash p-2 d-none';
     div4Icons.appendChild(iconRemove); // appends icon to item
 
+    item.appendChild(divNormal);
+    item.appendChild(divEdit);
     item.appendChild(div4Icons);
 
     list.appendChild(item); // appends item to list
@@ -161,5 +178,9 @@ export default class UI {
 
   static taskCompleted(index, value) {
     taskCompleted(index, value);
+  }
+
+  static changeLiToEditMode(li) {
+    console.log(li);
   }
 }
