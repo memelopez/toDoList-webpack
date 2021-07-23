@@ -1,7 +1,8 @@
+/* eslint-disable import/no-cycle */
 // UI Class: Handles UI Tasks
 import Task from './task';
 import Store from './store';
-import { taskCompleted } from './checkboxes';
+import taskCompleted from './checkboxes';
 
 // Hardcoded array of tasks --> toDos (line6)
 const toDos = [];
@@ -87,7 +88,7 @@ export default class UI {
   static addTasksUI(tasks) {
     // Get a hold of the UL
     const list = document.querySelector('#task-list');
-    // Erase everything inside the list 
+    // Erase everything inside the list
     list.innerHTML = '';
     // Iterates over array tasks to populate HTML list
     tasks.forEach((task) => this.addTaskToList(task));
@@ -113,7 +114,7 @@ export default class UI {
     const ind = document.createElement('P'); // creates p
     ind.textContent = task.index;
     ind.id = 'specialK';
-    ind.className = 'd-none'
+    ind.className = 'd-none';
     item.appendChild(ind);
 
     const icon = document.createElement('I'); // creates icon
