@@ -123,7 +123,7 @@ export default class UI {
 
     // Create div for edit view
     const divEdit = document.createElement('DIV');
-    divEdit.className = 'd-none align-items-center editView';
+    divEdit.className = 'd-none flex-fill align-items-center editView';
 
     const inputEdit = document.createElement('INPUT');
     inputEdit.setAttribute('type', 'text');
@@ -137,7 +137,7 @@ export default class UI {
     div4Icons.className = 'ms-auto';
 
     const iconAccept = document.createElement('I'); // creates accpet icon
-    iconAccept.className = 'fas fa-check-circle p-2 d-none';
+    iconAccept.className = 'fas fa-check-circle p-2 d-none acceptIcn';
     div4Icons.appendChild(iconAccept); // appends iaccwpt con to item
 
     const iconEdit = document.createElement('I'); // creates edit icon
@@ -145,7 +145,7 @@ export default class UI {
     div4Icons.appendChild(iconEdit); // appends edit icon to item
 
     const iconRemove = document.createElement('I'); // creates icon
-    iconRemove.className = 'fas fa-trash p-2 d-none';
+    iconRemove.className = 'fas fa-trash p-2 d-none removeIcn';
     div4Icons.appendChild(iconRemove); // appends icon to item
 
     item.appendChild(divNormal);
@@ -177,10 +177,70 @@ export default class UI {
   }
 
   static taskCompleted(index, value) {
+    console.log('deb- Recibe en UI - index : ', index, " y value: ", value);
     taskCompleted(index, value);
   }
 
   static changeLiToEditMode(li) {
-    console.log(li);
+    let classesLi = li.className;
+    classesLi = classesLi.replace('appItem', 'appItemEdit');
+    li.className = classesLi;
+    const childrenLi = li.children;
+
+    // change clases of divs
+    const normalView = childrenLi[0];
+    let classesNV = normalView.className;
+    classesNV = classesNV.replace('d-flex', 'd-none');
+    normalView.className = classesNV;
+
+    const editView = childrenLi[1];
+    let classesE = editView.className;
+    classesE = classesE.replace('d-none', 'd-flex');
+    editView.className = classesE;
+
+    const inputEdit = editView.querySelector('input');
+    inputEdit.id = 'inputEdit';
+    inputEdit.focus();
+
+    // show appropriate icons
+    const divIcons = childrenLi[2];
+    const icons = divIcons.children;
+    this.changeClassToElement(icons[0], 'd-none', '');
+    icons[1].classList.add('d-none');
+    this.changeClassToElement(icons[2], 'd-none', '');
+  }
+
+  static changeClassToElement(item, oldClass, newClass) {
+    let classesItem = item.className;
+    classesItem = classesItem.replace(oldClass, newClass);
+    item.className = classesItem;
+  }
+
+  static removeTask(li) {
+    const ulList = document.querySelector('#task-list');
+    const nodes = Array.from(ulList.children);
+    const index = nodes.indexOf(li);
+
+    // remove li from UI
+    li.remove();
+
+    // remove from store
+    Store.removeTask(index);
+  }
+
+  static updateTask(li, newDesc) {
+    // console.log(li, newDesc);
+    const ulList = document.querySelector('#task-list');
+    const nodes = Array.from(ulList.children);
+    const index = nodes.indexOf(li);
+
+    const tasks = Store.getTasks();
+    tasks[index].description = newDesc;
+
+    // Set task with modification tu store
+    Store.setTasks(tasks);
+
+    // Update task list Ui 
+    this.addTasksUI(tasks);
   }
 }

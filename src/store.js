@@ -39,4 +39,14 @@ export default class Sotre {
     total += 1;
     localStorage.setItem('index', JSON.stringify(total));
   }
+
+  static removeTask(index) {
+    const tasks = this.getTasks();
+
+    console.log('deb - store.removeTask - index: ', index);
+    tasks.splice(index, 1);
+    console.log('deb- store.removeTask - tasks after splice : ', tasks);
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
 }

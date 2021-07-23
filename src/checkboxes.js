@@ -3,14 +3,16 @@
 import UI from './uUIi';
 import Store from './store';
 
-const taskCompleted = (index, value) => {
+const taskCompleted = (position2chage, value) => {
   // Gets list from local storage
   const toDos = Store.getTasks();
-  toDos.forEach((task) => {
-    if (task.index === index) { // Finds the specific item that has been completed
-      task.completed = value;
-    }
-  });
+
+  console.log('deb- Recibe en checkboxes.js - index:', position2chage, ' y value: ', value);
+  console.log('deb- checkboxes.js - antes iterar - index:', toDos);
+  let task2modify = toDos[position2chage];
+  task2modify.completed = value;
+  toDos[position2chage] = task2modify;
+  console.log('deb- checkboxes.js - despues iterar - index:', toDos);
 
   // Set items to storage
   Store.setTasks(toDos);
