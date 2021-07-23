@@ -27,3 +27,11 @@ a {
   height: 50px;
   background-color: lightyellow;
 }
+
+.alert {
+  height: 40px;
+}
+
+.messageText {
+  color: white;
+}

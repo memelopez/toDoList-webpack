@@ -13,10 +13,11 @@ document.querySelector('#addTaskForm').addEventListener('submit', (e) => {
   // Get form values
   const taskDescription = document.querySelector('#taskDesc').value.trim();
   if (!validateDescription(taskDescription)) {
-    console.log('Enter valid description for to-do');
+    UI.showAlert('Fill in the description first :p', 'danger');
   } else {
     // Add task
     UI.addTask(taskDescription);
+    UI.showAlert('Added task!', 'success');
   }
 });
 
@@ -39,7 +40,7 @@ document.querySelector('#clickEnterIcon').addEventListener('click', () => {
   // Get form values
   const taskDescription = document.querySelector('#taskDesc').value.trim();
   if (!validateDescription(taskDescription)) {
-    console.log('Enter valid description for to-do');
+    UI.showAlert('Fill in the description first :p', 'warning');
   } else {
     // Add task
     UI.addTask(taskDescription);

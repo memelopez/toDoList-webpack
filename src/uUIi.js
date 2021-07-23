@@ -178,6 +178,13 @@ export default class UI {
 
   static taskCompleted(index, value) {
     taskCompleted(index, value);
+
+    // show alert
+    if (value) {
+      this.showAlert('Mission complete!', 'success');
+    } else {
+      this.showAlert('Mission uncomplete :o', 'primary');
+    }
   }
 
   static changeLiToEditMode(li) {
@@ -225,6 +232,9 @@ export default class UI {
 
     // remove from store
     Store.removeTask(index);
+
+    // show alert
+    this.showAlert('Removed task', 'warning');
   }
 
   static updateTask(li, newDesc) {
@@ -241,5 +251,26 @@ export default class UI {
 
     // Update task list Ui
     this.addTasksUI(tasks);
+
+    // show alert
+    this.showAlert('Updated task', 'success');
+  }
+
+  static showAlert(message, className) {
+    const div = document.createElement('div');
+    div.className = `alert bg-${className} d-flex justify-content-center align-items-center m-0 p-0`;
+
+    const spanMessage = document.createElement('SPAN');
+    spanMessage.textContent = message;
+    spanMessage.className = 'messageText';
+
+    div.appendChild(spanMessage);
+
+    const appDiv = document.querySelector('#appDiv');
+    const div3 = appDiv.children[2];
+    appDiv.insertBefore(div, div3);
+
+    // Vanish in 3 seconds
+    setTimeout(() => document.querySelector('.alert').remove(), 2500);
   }
 }
