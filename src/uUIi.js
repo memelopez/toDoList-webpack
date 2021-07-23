@@ -62,8 +62,6 @@ export default class UI {
 
     const aSubmit = document.createElement('A');
     aSubmit.setAttribute('id', 'clickEnterIcon');
-    // aSubmit.setAttribute('href', 'javascript:clickedEnterIcon()');
-    // aSubmit.setAttribute('onclick', "document.getElementById('addTaskForm').submit();");
 
     form.appendChild(input);
     aSubmit.appendChild(icon);
@@ -103,12 +101,15 @@ export default class UI {
     const checkbox = document.createElement('INPUT'); // creates checkbox
     checkbox.setAttribute('type', 'checkbox');
     checkbox.checked = task.completed;
-    checkbox.className = 'form-check-label p-2';
+    checkbox.className = 'form-check-label p-2 blackCheckboxes';
     item.appendChild(checkbox); // appends checkbox to item
 
     const text = document.createElement('P'); // creates p
     text.textContent = task.description;
     text.className = 'm-0 p-2';
+    if (task.completed === true) {
+      text.classList.add('text-decoration-line-through');
+    }
     item.appendChild(text); // appends p to item
 
     const ind = document.createElement('P'); // creates p
@@ -117,9 +118,22 @@ export default class UI {
     ind.className = 'd-none';
     item.appendChild(ind);
 
-    const icon = document.createElement('I'); // creates icon
-    icon.className = 'fas fa-ellipsis-v ms-auto p-2';
-    item.appendChild(icon); // appends icon to item
+    const div4Icons = document.createElement('DIV');
+    div4Icons.className = 'ms-auto';
+
+    const iconAccept = document.createElement('I'); // creates accpet icon
+    iconAccept.className = 'fas fa-check-circle p-2 d-none';
+    div4Icons.appendChild(iconAccept); // appends iaccwpt con to item
+
+    const iconEdit = document.createElement('I'); // creates edit icon
+    iconEdit.className = 'fas fa-ellipsis-v p-2';
+    div4Icons.appendChild(iconEdit); // appends edit icon to item
+
+    const iconRemove = document.createElement('I'); // creates icon
+    iconRemove.className = 'fas fa-trash p-2 d-none';
+    div4Icons.appendChild(iconRemove); // appends icon to item
+
+    item.appendChild(div4Icons);
 
     list.appendChild(item); // appends item to list
   }
