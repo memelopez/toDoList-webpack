@@ -19,3 +19,12 @@ document.querySelector('#addTaskForm').addEventListener('submit', (e) => {
     UI.addTask(taskDescription);
   }
 });
+
+document.querySelector('#task-list').addEventListener('change', (e) => {
+  const ulList = document.querySelector('#task-list');
+  const itemChecked = e.target.parentElement;
+  const nodes = Array.from(ulList.children);
+  const index = nodes.indexOf(itemChecked);
+
+  UI.taskCompleted(index);
+})
