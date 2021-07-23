@@ -25,7 +25,8 @@ document.querySelector('#task-list').addEventListener('change', (e) => {
   const checkboxState = e.target.checked;
 
   const ulList = document.querySelector('#task-list');
-  const itemChecked = e.target.parentElement;
+  const itemChecked = e.target.parentElement.parentElement;
+  console.log(e.target.parentElement.parentElement);
   const nodes = Array.from(ulList.children);
   const index = nodes.indexOf(itemChecked);
 
@@ -40,5 +41,13 @@ document.querySelector('#clickEnterIcon').addEventListener('click', () => {
   } else {
     // Add task
     UI.addTask(taskDescription);
+  }
+});
+
+document.querySelector('#task-list').addEventListener('click', (e) => {
+  const classesEdtIcn = e.target.className;
+  const classesEdtIcnArr = classesEdtIcn.split(' ');
+  if (classesEdtIcnArr[3] === 'edtIcn') {
+    UI.changeLiToEditMode(e.target.parentElement.parentElement);
   }
 });
