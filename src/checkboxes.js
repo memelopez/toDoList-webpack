@@ -7,12 +7,9 @@ const taskCompleted = (position2chage, value) => {
   // Gets list from local storage
   const toDos = Store.getTasks();
 
-  console.log('deb- Recibe en checkboxes.js - index:', position2chage, ' y value: ', value);
-  console.log('deb- checkboxes.js - antes iterar - index:', toDos);
-  let task2modify = toDos[position2chage];
+  const task2modify = toDos[position2chage];
   task2modify.completed = value;
   toDos[position2chage] = task2modify;
-  console.log('deb- checkboxes.js - despues iterar - index:', toDos);
 
   // Set items to storage
   Store.setTasks(toDos);

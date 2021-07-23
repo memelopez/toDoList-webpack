@@ -177,7 +177,6 @@ export default class UI {
   }
 
   static taskCompleted(index, value) {
-    console.log('deb- Recibe en UI - index : ', index, " y value: ", value);
     taskCompleted(index, value);
   }
 
@@ -240,7 +239,7 @@ export default class UI {
     // Set task with modification tu store
     Store.setTasks(tasks);
 
-    // Update task list Ui 
+    // Update task list Ui
     this.addTasksUI(tasks);
   }
 }
