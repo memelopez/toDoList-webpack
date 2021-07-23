@@ -12,10 +12,14 @@ export default class Sotre {
     return tasks;
   }
 
+  static setTasks(tasks) {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+
   static addTask(task) {
     const tasks = this.getTasks();
     tasks.push(task);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    this.setTasks(tasks);
   }
 
   // index - saves the total of tasks created ever
