@@ -1,6 +1,7 @@
 // UI Class: Handles UI Tasks
 import Task from './task';
 import Store from './store';
+import { taskCompleted } from './checkboxes';
 
 // Hardcoded array of tasks --> toDos (line6)
 const toDos = [];
@@ -75,6 +76,7 @@ export default class UI {
 
     const item = document.createElement('LI'); // creates list item
     item.className = 'd-flex justify-content-around align-items-center border-bottom border-2 px-2 appItem';
+    item.name = '' + task.index;
 
     const checkbox = document.createElement('INPUT'); // creates checkbox
     checkbox.setAttribute('type', 'checkbox');
@@ -86,6 +88,12 @@ export default class UI {
     text.textContent = task.description;
     text.className = 'm-0 p-2';
     item.appendChild(text); // appends p to item
+
+    const ind = document.createElement('P'); // creates p
+    ind.textContent = task.index;
+    ind.id = 'specialK';
+    ind.className = 'd-none'
+    item.appendChild(ind);
 
     const icon = document.createElement('I'); // creates icon
     icon.className = 'fas fa-ellipsis-v ms-auto p-2';
@@ -113,5 +121,9 @@ export default class UI {
 
   static clearField() {
     document.querySelector('#taskDesc').value = '';
+  }
+
+  static taskCompleted(index) {
+    taskCompleted(index);
   }
 }
