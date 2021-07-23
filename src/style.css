@@ -22,3 +22,8 @@ a {
   height: 50px;
   background-color: white;
 }
+
+.appItemEdit {
+  height: 50px;
+  background-color: yellowgreen;
+}
