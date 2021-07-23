@@ -27,10 +27,16 @@ export default class UI {
 
     const div4title = document.createElement('DIV');
     div4title.className = 'd-flex justify-content-start align-items-center border-bottom border-2 px-2 appItem';
+
     const title = document.createElement('p');
     title.className = 'fs-5 m-0';
     title.innerText = "Today's To Do";
+
+    const icon = document.createElement('ICON');
+    icon.className = 'fas fa-sync-alt ms-auto p-2';
+
     div4title.appendChild(title);
+    div4title.appendChild(icon);
 
     appDiv.appendChild(div4title);
   }
@@ -43,12 +49,24 @@ export default class UI {
     form.className = 'd-flex justify-content-start align-items-center border-bottom border-2 px-2 appItem';
     form.action = 'submit';
     form.id = 'addTaskForm';
+
     const input = document.createElement('input');
     input.type = 'text';
     input.id = 'taskDesc';
     input.placeholder = 'Add to your list...';
     input.className = 'form-control border-0 fst-italic p-0';
+
+    const icon = document.createElement('ICON');
+    icon.className = 'fas fa-sign-in-alt ms-auto p-2';
+
+    const aSubmit = document.createElement('A');
+    aSubmit.setAttribute('id', 'clickEnterIcon');
+    // aSubmit.setAttribute('href', 'javascript:clickedEnterIcon()');
+    // aSubmit.setAttribute('onclick', "document.getElementById('addTaskForm').submit();");
+
     form.appendChild(input);
+    aSubmit.appendChild(icon);
+    form.appendChild(aSubmit);
     div4form.appendChild(form);
 
     appDiv.appendChild(div4form);
@@ -67,6 +85,10 @@ export default class UI {
   }
 
   static addTasksUI(tasks) {
+    // Get a hold of the UL
+    const list = document.querySelector('#task-list');
+    // Erase everything inside the list 
+    list.innerHTML = '';
     // Iterates over array tasks to populate HTML list
     tasks.forEach((task) => this.addTaskToList(task));
   }
@@ -76,7 +98,6 @@ export default class UI {
 
     const item = document.createElement('LI'); // creates list item
     item.className = 'd-flex justify-content-around align-items-center border-bottom border-2 px-2 appItem';
-    item.name = '' + task.index;
 
     const checkbox = document.createElement('INPUT'); // creates checkbox
     checkbox.setAttribute('type', 'checkbox');
@@ -123,7 +144,7 @@ export default class UI {
     document.querySelector('#taskDesc').value = '';
   }
 
-  static taskCompleted(index) {
-    taskCompleted(index);
+  static taskCompleted(index, value) {
+    taskCompleted(index, value);
   }
 }
