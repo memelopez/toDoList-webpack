@@ -3,14 +3,13 @@
 import UI from './uUIi';
 import Store from './store';
 
-const taskCompleted = (index, value) => {
+const taskCompleted = (position2chage, value) => {
   // Gets list from local storage
   const toDos = Store.getTasks();
-  toDos.forEach((task) => {
-    if (task.index === index) { // Finds the specific item that has been completed
-      task.completed = value;
-    }
-  });
+
+  const task2modify = toDos[position2chage];
+  task2modify.completed = value;
+  toDos[position2chage] = task2modify;
 
   // Set items to storage
   Store.setTasks(toDos);

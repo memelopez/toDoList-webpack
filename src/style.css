@@ -25,5 +25,13 @@ a {
 
 .appItemEdit {
   height: 50px;
-  background-color: yellowgreen;
+  background-color: lightyellow;
+}
+
+.alert {
+  height: 40px;
+}
+
+.messageText {
+  color: white;
 }

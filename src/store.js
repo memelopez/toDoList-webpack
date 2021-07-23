@@ -39,4 +39,12 @@ export default class Sotre {
     total += 1;
     localStorage.setItem('index', JSON.stringify(total));
   }
+
+  static removeTask(index) {
+    const tasks = this.getTasks();
+
+    tasks.splice(index, 1);
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
 }
