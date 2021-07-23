@@ -21,10 +21,24 @@ document.querySelector('#addTaskForm').addEventListener('submit', (e) => {
 });
 
 document.querySelector('#task-list').addEventListener('change', (e) => {
+  // Gets the state of the checked checkbox
+  const checkboxState = e.target.checked;
+
   const ulList = document.querySelector('#task-list');
   const itemChecked = e.target.parentElement;
   const nodes = Array.from(ulList.children);
   const index = nodes.indexOf(itemChecked);
 
-  UI.taskCompleted(index);
-})
+  UI.taskCompleted(index, checkboxState);
+});
+
+document.querySelector('#clickEnterIcon').addEventListener('click', () => {
+  // Get form values
+  const taskDescription = document.querySelector('#taskDesc').value.trim();
+  if (!validateDescription(taskDescription)) {
+    console.log('Enter valid description for to-do');
+  } else {
+    // Add task
+    UI.addTask(taskDescription);
+  }
+});
