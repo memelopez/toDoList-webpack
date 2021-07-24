@@ -232,8 +232,6 @@ export default class UI {
     // remove from store
     Store.removeTask(index);
 
-    alert('Removed task');
-
     // eslint-disable-next-line no-restricted-globals
     location.reload();
   }

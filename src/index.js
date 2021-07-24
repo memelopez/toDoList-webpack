@@ -13,11 +13,10 @@ document.querySelector('#addTaskForm').addEventListener('submit', (e) => {
   // Get form values
   const taskDescription = document.querySelector('#taskDesc').value.trim();
   if (!validateDescription(taskDescription)) {
-    alert('ERROR - description is empty!');
+    console.log('Error- empty description');
   } else {
     // Add task
     UI.addTask(taskDescription);
-    alert('Added task');
   }
 });
 
@@ -40,7 +39,7 @@ document.querySelector('#clickEnterIcon').addEventListener('click', () => {
   // Get form values
   const taskDescription = document.querySelector('#taskDesc').value.trim();
   if (!validateDescription(taskDescription)) {
-    alert('Error - decsription is empty!');
+    console.log('empty description');
   } else {
     // Add task
     UI.addTask(taskDescription);
