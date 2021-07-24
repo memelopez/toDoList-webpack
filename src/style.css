@@ -35,3 +35,11 @@ a {
 .messageText {
   color: white;
 }
+
+.draggable {
+  cursor: move;
+}
+
+.draggable.dragging {
+  opacity: 0.5;
+}

@@ -47,4 +47,8 @@ export default class Sotre {
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }
+
+  static setIndexTo(newIndex) {
+    localStorage.setItem('index', JSON.stringify(newIndex));
+  }
 }
