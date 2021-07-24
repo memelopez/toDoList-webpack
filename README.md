@@ -4,7 +4,7 @@
 
 > An application of a book list.
 
-<img src="https://user-images.githubusercontent.com/6587226/126578892-1d22f22b-10f5-4358-b21a-002396ba336f.png" width="600">
+<img src="https://user-images.githubusercontent.com/6587226/126874878-511d5dc8-a9e4-4a96-be4f-85c282092d7f.png" width="600">
 
 To-do list app. For storing your shores and responsabilities.  
 
