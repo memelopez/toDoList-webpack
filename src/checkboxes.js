@@ -1,6 +1,5 @@
 /* eslint-disable import/no-cycle */
 //  Module: related to the status updates with completed checkboxes
-import UI from './uUIi';
 import Store from './store';
 
 const taskCompleted = (position2chage, value) => {
@@ -14,8 +13,9 @@ const taskCompleted = (position2chage, value) => {
   // Set items to storage
   Store.setTasks(toDos);
 
-  // Update list to UI
-  UI.addTasksUI(toDos);
+  // Reload page
+  // eslint-disable-next-line no-restricted-globals
+  location.reload();
 };
 
 export default taskCompleted;

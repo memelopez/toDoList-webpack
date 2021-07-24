@@ -13,11 +13,11 @@ document.querySelector('#addTaskForm').addEventListener('submit', (e) => {
   // Get form values
   const taskDescription = document.querySelector('#taskDesc').value.trim();
   if (!validateDescription(taskDescription)) {
-    UI.showAlert('Fill in the description first :p', 'danger');
+    alert('ERROR - description is empty!');
   } else {
     // Add task
     UI.addTask(taskDescription);
-    UI.showAlert('Added task!', 'success');
+    alert('Added task');
   }
 });
 
@@ -40,7 +40,7 @@ document.querySelector('#clickEnterIcon').addEventListener('click', () => {
   // Get form values
   const taskDescription = document.querySelector('#taskDesc').value.trim();
   if (!validateDescription(taskDescription)) {
-    UI.showAlert('Fill in the description first :p', 'warning');
+    alert('Error - decsription is empty!');
   } else {
     // Add task
     UI.addTask(taskDescription);
@@ -59,7 +59,29 @@ document.querySelector('#task-list').addEventListener('click', (e) => {
   }
   if (classesArr.indexOf('acceptIcn') !== -1) {
     const newDesc = document.querySelector('#inputEdit').value;
-    // console.log(newDesc);
     UI.updateTask(e.target.parentElement.parentElement, newDesc);
   }
+});
+
+// drag drop events
+const draggables = document.querySelectorAll('.draggable');
+const container = document.querySelector('#task-list');
+
+draggables.forEach((draggable) => {
+  draggable.addEventListener('dragstart', () => {
+    draggable.classList.add('dragging');
+  });
+
+  draggable.addEventListener('dragend', () => {
+    draggable.classList.remove('dragging');
+  });
+});
+
+container.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  UI.dragOverContainer(container, e);
+});
+
+container.addEventListener('drop', () => {
+  UI.indexTasksFromUI();
 });

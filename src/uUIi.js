@@ -3,6 +3,7 @@
 import Task from './task';
 import Store from './store';
 import taskCompleted from './checkboxes';
+import dropsItem from './dragDrop';
 
 // Hardcoded array of tasks --> toDos (line6)
 const toDos = [];
@@ -96,7 +97,8 @@ export default class UI {
     const list = document.querySelector('#task-list');
 
     const item = document.createElement('LI'); // creates list item
-    item.className = 'd-flex justify-content-around align-items-center border-bottom border-2 px-2 appItem';
+    item.className = 'd-flex justify-content-around align-items-center border-bottom border-2 px-2 appItem draggable';
+    item.setAttribute('draggable', 'true');
 
     // creates div for normal view
     const divNormal = document.createElement('DIV');
@@ -179,12 +181,9 @@ export default class UI {
   static taskCompleted(index, value) {
     taskCompleted(index, value);
 
-    // show alert
-    if (value) {
-      this.showAlert('Mission complete!', 'success');
-    } else {
-      this.showAlert('Mission uncomplete :o', 'primary');
-    }
+    // reload page
+    // eslint-disable-next-line no-restricted-globals
+    location.reload();
   }
 
   static changeLiToEditMode(li) {
@@ -233,8 +232,10 @@ export default class UI {
     // remove from store
     Store.removeTask(index);
 
-    // show alert
-    this.showAlert('Removed task', 'warning');
+    alert('Removed task');
+
+    // eslint-disable-next-line no-restricted-globals
+    location.reload();
   }
 
   static updateTask(li, newDesc) {
@@ -249,28 +250,31 @@ export default class UI {
     // Set task with modification tu store
     Store.setTasks(tasks);
 
-    // Update task list Ui
-    this.addTasksUI(tasks);
-
-    // show alert
-    this.showAlert('Updated task', 'success');
+    // Reload page
+    // eslint-disable-next-line no-restricted-globals
+    location.reload();
   }
 
-  static showAlert(message, className) {
-    const div = document.createElement('div');
-    div.className = `alert bg-${className} d-flex justify-content-center align-items-center m-0 p-0`;
+  static dragOverContainer(container, e) {
+    dropsItem(container, e);
+  }
 
-    const spanMessage = document.createElement('SPAN');
-    spanMessage.textContent = message;
-    spanMessage.className = 'messageText';
+  static indexTasksFromUI() {
+    const tasksList = document.querySelector('#task-list');
+    const tasksUI = tasksList.children;
+    const newtasks = [];
 
-    div.appendChild(spanMessage);
+    for (let i = 0; i < tasksUI.length; i += 1) {
+      const desc = tasksUI[i].children[0].children[1].textContent;
+      const check = tasksUI[i].children[0].children[0].checked;
+      const todo = new Task(desc, check, i);
+      newtasks.push(todo);
+    }
 
-    const appDiv = document.querySelector('#appDiv');
-    const div3 = appDiv.children[2];
-    appDiv.insertBefore(div, div3);
-
-    // Vanish in 3 seconds
-    setTimeout(() => document.querySelector('.alert').remove(), 2500);
+    const newInd = newtasks.length;
+    Store.setTasks(newtasks);
+    Store.setIndexTo(newInd);
+    // eslint-disable-next-line no-restricted-globals
+    location.reload(); // Reload page
   }
 }
