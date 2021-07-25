@@ -4,16 +4,7 @@ import Task from './task';
 import Store from './store';
 import taskCompleted from './checkboxes';
 import dropsItem from './dragDrop';
-
-// Hardcoded array of tasks --> toDos (line6)
-const toDos = [];
-const secondTask = new Task('wahs dishes', true, 2);
-toDos.push(secondTask);
-const thirdTask = new Task('fix sink', false, 3);
-toDos.push(thirdTask);
-
-// meter los tasks a local storage
-// toDos.forEach((task) => Store.addTask(task));
+import returnsUncompleted from './isCompleted';
 
 export default class UI {
   static addApp() {
@@ -22,6 +13,7 @@ export default class UI {
     this.addEmptyUL();
     const toDos1 = Store.getTasks();
     this.addTasksUI(toDos1);
+    this.addbottombtn();
   }
 
   static addTitleUI() {
@@ -237,7 +229,6 @@ export default class UI {
   }
 
   static updateTask(li, newDesc) {
-    // console.log(li, newDesc);
     const ulList = document.querySelector('#task-list');
     const nodes = Array.from(ulList.children);
     const index = nodes.indexOf(li);
@@ -274,5 +265,31 @@ export default class UI {
     Store.setIndexTo(newInd);
     // eslint-disable-next-line no-restricted-globals
     location.reload(); // Reload page
+  }
+
+  static addbottombtn() {
+    const appDiv = document.querySelector('#appDiv');
+
+    const btmDiv = document.createElement('DIV');
+    btmDiv.className = 'd-flex justify-content-center align-items-center border bg-light btmDiv';
+
+    const pBtm = document.createElement('P');
+    pBtm.textContent = 'Clear all completed';
+    pBtm.className = 'm-0 btmText';
+    pBtm.id = 'pBtm';
+
+    btmDiv.appendChild(pBtm);
+    appDiv.appendChild(btmDiv);
+  }
+
+  static clearCompleted() {
+    const tasks = Store.getTasks();
+
+    const uncompletedTasks = tasks.filter(returnsUncompleted);
+
+    Store.setTasks(uncompletedTasks);
+
+    // eslint-disable-next-line no-restricted-globals
+    location.reload();
   }
 }

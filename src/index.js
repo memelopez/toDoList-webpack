@@ -84,3 +84,8 @@ container.addEventListener('dragover', (e) => {
 container.addEventListener('drop', () => {
   UI.indexTasksFromUI();
 });
+
+document.querySelector('#pBtm').addEventListener('click', () => {
+  // console.log('clear all');
+  UI.clearCompleted();
+});

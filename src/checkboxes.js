@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 //  Module: related to the status updates with completed checkboxes
 import Store from './store';
 
