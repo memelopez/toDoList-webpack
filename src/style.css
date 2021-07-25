@@ -35,3 +35,12 @@ a {
 .draggable.dragging {
   opacity: 0.5;
 }
+
+.btmDiv {
+  height: 65px;
+}
+
+.btmText {
+  color: darkgray;
+  font-style: unset;
+}
